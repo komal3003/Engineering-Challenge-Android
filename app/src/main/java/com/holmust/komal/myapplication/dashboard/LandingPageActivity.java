@@ -91,7 +91,7 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         {
             foodType = String.valueOf(food_type.DINNER);
         }
-        else{
+        else if(v.equals(btn_addMisc)){
             foodType = String.valueOf(food_type.SNACKS);
         }
 
@@ -160,6 +160,20 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         pieChart.setData(pieData);
         pieChart.invalidate();
 
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(DbUtil.getDataSize(this)!=0){
+            pieChart.setVisibility(View.VISIBLE);
+            configurePieChart();
+
+        }
+        else{
+            tv_nodta.setVisibility(View.VISIBLE);
+        }
 
     }
 }
