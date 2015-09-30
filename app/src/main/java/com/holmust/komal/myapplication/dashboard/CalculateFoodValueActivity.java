@@ -105,6 +105,7 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
         showfooddetails.putExtra("FoodDetails", foodValue);
         showfooddetails.putExtra(LandingPageActivity.FOOD_TYPE_STR,food_type);
         startActivity(showfooddetails);
+        finish();
 
     }
 

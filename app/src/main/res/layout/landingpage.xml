@@ -40,6 +40,8 @@
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -82,19 +84,22 @@
         android:background="@drawable/titlebar_button"
         android:layout_gravity="center_horizontal"/>
         <TextView
+            android:layout_marginTop="20dp"
             android:id="@+id/tv_no_pie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No food added for today"
+            android:text="Add food to view Calorie distribution for today"
+            android:textSize="20dp"
+            android:textStyle="bold|italic"
             android:layout_gravity="center_horizontal"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/piechart"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity = "center_horizontal"
-            android:visibility="visible"
+            android:visibility="gone"
             />
 
 

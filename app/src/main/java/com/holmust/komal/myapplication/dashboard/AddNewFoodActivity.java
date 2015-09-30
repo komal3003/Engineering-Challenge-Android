@@ -59,6 +59,7 @@ public class AddNewFoodActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
 
         Realm realm = Realm.getInstance(this);
+        Long start_write = new Date().getTime();
         realm.beginTransaction();
         FoodieDb userRealm = realm.createObject(FoodieDb.class);
         //FoodieDb userRealm = DbUtil.CreateDb(this);
@@ -86,6 +87,9 @@ public class AddNewFoodActivity extends Activity implements View.OnClickListener
         userRealm.setTotal_carbs(Float.parseFloat(ed_carbs.getText().toString()));
 
         realm.commitTransaction();
+        Long end_write = new Date().getTime();
+        Long write_dur = end_write - start_write;
+        Log.d(LOG_TAG, "Time taken to write data : :"+write_dur +"ms");
         realm.close();
 
         /*realm = Realm.getInstance(this);

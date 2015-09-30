@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -14,13 +15,16 @@ import io.realm.RealmResults;
 public class DbUtil {
 
     final static String LOG_TAG = "Calorimeter-ShowFoodNut";
+    static int dataSize = 0;
 
-    public static FoodieDb CreateDb(Context context)
+    public static int getDataSize(Context context)
     {
         Realm realm = Realm.getInstance(context);
         realm.beginTransaction();
-        FoodieDb userRealm = realm.createObject(FoodieDb.class);
-        return userRealm;
+        RealmResults<FoodieDb> hallos = realm.where(FoodieDb.class).findAll();
+        realm.commitTransaction();
+        dataSize = hallos.size();
+        return dataSize;
     }
 
     public static float[] getCaloriesForToday(Context context)
@@ -31,9 +35,17 @@ public class DbUtil {
         float cal_snacks = 0;
 
         Realm realm = Realm.getInstance(context);
+
+        Long start_time = new Date().getTime();
         realm.beginTransaction();
         RealmResults<FoodieDb> hallos = realm.where(FoodieDb.class).findAll();
+        Long end_time = new Date().getTime();
         realm.commitTransaction();
+        Long data_retireval_time = end_time-start_time;
+
+        Log.d(LOG_TAG, "Data retrieval time in : :"+data_retireval_time +"ms");
+
+        dataSize = hallos.size();
 
         for (FoodieDb object : hallos) {
             if(object.getMeal_type().equals("LUNCH"))

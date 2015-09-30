@@ -64,9 +64,16 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         btn_addBrk.setOnClickListener(this);
         btn_addDinner.setOnClickListener(this);
         btn_addMisc.setOnClickListener(this);
+        if(DbUtil.getDataSize(this)!=0){
+            pieChart.setVisibility(View.VISIBLE);
+            configurePieChart();
 
+        }
+        else{
+            tv_nodta.setVisibility(View.VISIBLE);
+        }
         //DbUtil.getCaloriesForToday(this);
-        configurePieChart();
+
     }
 
     @Override
@@ -99,6 +106,7 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
     {
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("Calories distribution for today");
+        pieChart.setDescriptionTextSize(15f);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColorTransparent(true);
         pieChart.setHoleRadius(10);
@@ -151,6 +159,7 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         pieData.setValueTextColor(Color.BLUE);
         pieChart.setData(pieData);
         pieChart.invalidate();
+
 
     }
 }

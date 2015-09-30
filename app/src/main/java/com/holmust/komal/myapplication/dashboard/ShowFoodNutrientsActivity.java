@@ -182,6 +182,7 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
         if(v.equals(btn_add)) {
             Log.i(LOG_TAG, "Button clicked");
             Realm realm = Realm.getInstance(this);
+            Long start_write = new Date().getTime();
             realm.beginTransaction();
             FoodieDb userRealm = realm.createObject(FoodieDb.class);
             //FoodieDb userRealm = DbUtil.CreateDb(this);
@@ -209,6 +210,9 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
             userRealm.setTotal_carbs(Float.parseFloat(tv_carbs.getText().toString()));
 
             realm.commitTransaction();
+            Long end_write = new Date().getTime();
+            Long write_dur = end_write - start_write;
+            Log.d(LOG_TAG, "Time taken to write data : :" + write_dur + "ms");
             realm.close();
 
             /*realm = Realm.getInstance(this);
