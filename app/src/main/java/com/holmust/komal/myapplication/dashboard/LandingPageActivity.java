@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class LandingPageActivity extends Activity implements View.OnClickListener {
 
     TextView tv_appname, tv_nodta;
-    Button btn_addLunch, btn_addBrk, btn_addDinner, btn_addMisc;
+    Button btn_addLunch, btn_addBrk, btn_addDinner, btn_addMisc, btn_viewFood;
     LinearLayout lv_mainpage;
     static final String FOOD_TYPE_STR = "FOOD TYPE";
     String foodType;
@@ -58,6 +58,7 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         btn_addLunch = (Button)findViewById(R.id.btn_addLunch);
         btn_addDinner = (Button)findViewById(R.id.btn_dinner);
         btn_addMisc = (Button)findViewById(R.id.btnSnacks);
+        btn_viewFood =(Button)findViewById(R.id.btn_viewfood);
         lv_mainpage = (LinearLayout)findViewById(R.id.lv_landing);
         pieChart =  (PieChart)findViewById(R.id.piechart);
 
@@ -67,6 +68,8 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         btn_addBrk.setOnClickListener(this);
         btn_addDinner.setOnClickListener(this);
         btn_addMisc.setOnClickListener(this);
+        btn_viewFood.setOnClickListener(this);
+
 
         //Check if there is any food added in the database for the day, to refresh piechart
         if(DbUtil.getDataSize(this)!=0){
@@ -102,10 +105,17 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         else if(v.equals(btn_addMisc)){
             foodType = String.valueOf(food_type.SNACKS);
         }
+        if(v.equals(btn_viewFood))
+        {
+            Intent viewFoodIntent = new Intent(this, ShowTodaysFood.class);
+            startActivity(viewFoodIntent);
+        }
+        else{
+            Intent searchFoodIntent = new Intent(this, CalculateFoodValueActivity.class);
+            searchFoodIntent.putExtra(FOOD_TYPE_STR, foodType);
+            startActivity(searchFoodIntent);
 
-        Intent searchFoodIntent = new Intent(this, CalculateFoodValueActivity.class);
-        searchFoodIntent.putExtra(FOOD_TYPE_STR, foodType);
-        startActivity(searchFoodIntent);
+        }
     }
 
     //PieChart is configured with color, size and data

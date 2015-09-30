@@ -76,4 +76,28 @@ public class DbUtil {
 
     }
 
+    public static RealmResults<FoodieDb> getAllfood(Context context)
+    {
+        Realm realm = Realm.getInstance(context);
+
+        Long start_time = new Date().getTime();
+        realm.beginTransaction();
+        RealmResults<FoodieDb> hallos = realm.where(FoodieDb.class).findAll();
+        Long end_time = new Date().getTime();
+        realm.commitTransaction();
+        Long data_retireval_time = end_time-start_time; //Calculate data retrieval time from Realm db
+        Log.d(LOG_TAG, "Data retrieval time in : :" + data_retireval_time + "ms");
+
+        return hallos;
+    }
+
+    public static void deleteFood(Context context, FoodieDb object)
+    {
+        Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
+        object.removeFromRealm();
+        realm.commitTransaction();
+        //realm.remo
+    }
+
 }
