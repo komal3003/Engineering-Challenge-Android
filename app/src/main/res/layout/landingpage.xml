@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    >
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/steel_plate_bgd"
+    android:orientation="vertical"
+    >
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Track your Calories with"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:textColor="#4627ff"
+        android:textSize="20dp"
+        android:id="@+id/tv_header"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calorimeter"
+        android:textAllCaps="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:textColor="@color/text_header"
+        android:textSize="30dp"
+        android:id="@+id/tv_appname"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/lv_landing"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_addbrk"
+            android:textStyle="bold|italic"
+            android:text="@string/str_btn_breakfast"
+            android:background="@drawable/titlebar_button"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold|italic"
+            android:text="@string/str_btn_lunch"
+            android:id="@+id/btn_addLunch"
+            android:background="@drawable/titlebar_button"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="150dp"
+            android:textStyle="bold|italic"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_dinner"
+            android:text="@string/str_btn_dinner"
+            android:layout_below="@+id/btn_addbrk"
+            android:background="@drawable/titlebar_button"
+            android:layout_gravity="center_horizontal">
+        </Button>
+
+    <Button
+        android:layout_width="100dp"
+        android:textStyle="bold|italic"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSnacks"
+        android:text="Misc"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/titlebar_button"
+        android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/tv_no_pie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No food added for today"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity = "center_horizontal"
+            android:visibility="visible"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>
+    </ScrollView>

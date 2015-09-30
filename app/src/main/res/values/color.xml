@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text_header">#ff913e</color>
+    <color name="font_color">#ffffff</color>
+    <color name="small_font_color">#000000</color>
+    <color name="linear_layout_background">#fff003</color>
+</resources>
