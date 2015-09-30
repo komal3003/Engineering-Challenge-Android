@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * Created by Komal on 9/29/2015.
+ *
+ * Generic content class for each nutrient
  */
 public class Content implements Serializable{
     private String unit;

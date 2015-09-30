@@ -13,10 +13,12 @@ import com.holmust.komal.myapplication.dashboard.RealmDatabase.FoodieDb;
 import java.util.Date;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
+
 
 /**
  * Created by Komal on 9/30/2015.
+ * This activity displays a form to the user to add new food items(which were not found on server)
+ * into the database.
  */
 public class AddNewFoodActivity extends Activity implements View.OnClickListener {
 
@@ -33,6 +35,8 @@ public class AddNewFoodActivity extends Activity implements View.OnClickListener
         food_type = getIntent().getStringExtra(LandingPageActivity.FOOD_TYPE_STR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addnewfood);
+
+        //Map widgets with layout components
         ed_cal = (EditText)findViewById(R.id.tv_nf_cal_value);
         ed_totalfat =  (EditText)findViewById(R.id.tv_nf_fat_value);
         ed_sat_fat = (EditText)findViewById(R.id.tv_nf_fat_sat_value);
@@ -57,6 +61,10 @@ public class AddNewFoodActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+
+        /*
+        Get data from EditText of the form and write data into the database
+         */
 
         Realm realm = Realm.getInstance(this);
         Long start_write = new Date().getTime();
@@ -87,7 +95,7 @@ public class AddNewFoodActivity extends Activity implements View.OnClickListener
         userRealm.setTotal_carbs(Float.parseFloat(ed_carbs.getText().toString()));
 
         realm.commitTransaction();
-        Long end_write = new Date().getTime();
+        Long end_write = new Date().getTime(); //Record time taken to write data into database
         Long write_dur = end_write - start_write;
         Log.d(LOG_TAG, "Time taken to write data : :"+write_dur +"ms");
         realm.close();

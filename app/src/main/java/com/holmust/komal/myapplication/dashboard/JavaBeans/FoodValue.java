@@ -12,6 +12,7 @@ import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Komal on 9/25/2015.
+ * This class is mapped with all the JSONObjects for every food object in JSON response
  */
 public class FoodValue implements Serializable {
 

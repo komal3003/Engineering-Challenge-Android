@@ -27,6 +27,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Komal on 9/30/2015.
+ * This is the launcher activity of the application.
+ * User can add food consumed by clicking different food type buttons
+ * Pie Chart with daily calorie distribution for the day is displayed
  */
 public class LandingPageActivity extends Activity implements View.OnClickListener {
 
@@ -64,6 +67,8 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         btn_addBrk.setOnClickListener(this);
         btn_addDinner.setOnClickListener(this);
         btn_addMisc.setOnClickListener(this);
+
+        //Check if there is any food added in the database for the day, to refresh piechart
         if(DbUtil.getDataSize(this)!=0){
             pieChart.setVisibility(View.VISIBLE);
             configurePieChart();
@@ -76,6 +81,9 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
 
     }
 
+    /*
+    *Selected food type is sent with intent to next activity
+     */
     @Override
     public void onClick(View v) {
 
@@ -98,10 +106,9 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
         Intent searchFoodIntent = new Intent(this, CalculateFoodValueActivity.class);
         searchFoodIntent.putExtra(FOOD_TYPE_STR, foodType);
         startActivity(searchFoodIntent);
-
-
     }
 
+    //PieChart is configured with color, size and data
     private void configurePieChart()
     {
         pieChart.setUsePercentValues(true);
@@ -125,6 +132,7 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
 
     }
 
+    //In this method data is populated into the pieChart
     private void addData()
     {
 
@@ -163,13 +171,13 @@ public class LandingPageActivity extends Activity implements View.OnClickListene
 
     }
 
+    //PieChart is refreshed after new food is added into the database
     @Override
     public void onResume(){
         super.onResume();
         if(DbUtil.getDataSize(this)!=0){
             pieChart.setVisibility(View.VISIBLE);
             configurePieChart();
-
         }
         else{
             tv_nodta.setVisibility(View.VISIBLE);

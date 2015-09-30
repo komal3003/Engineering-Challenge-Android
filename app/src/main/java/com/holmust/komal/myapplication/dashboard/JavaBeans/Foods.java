@@ -8,6 +8,8 @@ import io.realm.RealmObject;
 
 /**
  * Created by Komal on 9/27/2015.
+ *
+ * This class handles the JSON response which is a JSONArray of different foods
  */
 public class Foods {
 

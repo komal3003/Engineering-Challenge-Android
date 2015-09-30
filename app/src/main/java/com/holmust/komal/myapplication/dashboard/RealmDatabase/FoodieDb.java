@@ -7,11 +7,14 @@ import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Komal on 9/29/2015.
+ *
+ * This Class is a RealmObject POJO class.
+ * All the data members in this class will be added to Realm db.
  */
 public class FoodieDb extends RealmObject {
 
-
     @PrimaryKey private String prim_key; //<food_name>-<meal_type>-<date>-<serving_portion>-<serving_size>
+
     private String food_name,  meal_type;
     private Date date;
     private String serving_portion;

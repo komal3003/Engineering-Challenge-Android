@@ -32,6 +32,9 @@ import retrofit.client.Response;
 
 /**
  * Created by Komal on 9/25/2015.
+ *
+ * This activity searches food items from server and displays it to the
+ * user in a list with maximum 10 items
  */
 public class CalculateFoodValueActivity extends Activity implements SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, View.OnClickListener {
     private static String LOG_TAG = "Calorimeter";
@@ -40,8 +43,7 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
     TextView tv_search_header;
     Button btn_newfood;
     String input_food = "";
-    private static String ROOT =
-            "https://test.holmusk.com/food";
+    final private static String ROOT = "https://test.holmusk.com/food";
     Foods foods = new Foods();
     String food_type = "";
 
@@ -51,12 +53,14 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
         food_type = getIntent().getStringExtra(LandingPageActivity.FOOD_TYPE_STR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchview);
+
+        //Map views with layout components
         search = (SearchView)findViewById(R.id.searchView);
         listView = (ListView)findViewById(R.id.food_list);
         tv_search_header = (TextView)findViewById(R.id.tv_search_header);
         btn_newfood = (Button)findViewById(R.id.btn_add_newfood);
-        //input_food = search.getQuery().toString();
 
+        //Set listeners to UI components
         search.setOnQueryTextListener(this);
         listView.setOnItemClickListener(this);
         btn_newfood.setOnClickListener(this);
@@ -64,6 +68,7 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
 
     }
 
+    //On click of search icon, query is passed to async task
     @Override
     public boolean onQueryTextSubmit(String query) {
         LoadDataIntoSearchTask loadTask = new LoadDataIntoSearchTask();
@@ -75,26 +80,26 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
     @Override
     public boolean onQueryTextChange(String newText) {
         Log.i(LOG_TAG, newText);
-       /*final ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, foodname);*/
         LoadDataIntoSearchTask loadTask = new LoadDataIntoSearchTask();
-        //loadTask.execute(newText);
-        //listView.setAdapter(adapter);
+
+        //Check if search query is empty
         if (TextUtils.isEmpty(newText)) {
             Log.i(LOG_TAG, "onQueryTextChange Empty String");
             listView.clearTextFilter();
 
         }
         else{
-
-            //loadTask = new LoadDataIntoSearchTask();
             loadTask.execute(newText);
-            //listView.setAdapter(adapter);*//*
-
         }
         return false;
     }
 
+
+    /*
+    *On click of food item from the list, ShowFoodNutrientsActivity is started.
+    * The details of the selected food list item is passed  as intent to next activity,
+    * as an object of FoodValue class
+    */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -109,6 +114,10 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
 
     }
 
+    /*
+    * The user can click on add new button to enter the details of a new food.
+    * food_type i.e. lunch, breakfast or dinner is passed to next Activity as intent
+    */
     @Override
     public void onClick(View v) {
         Intent addNewfood = new Intent(this, AddNewFoodActivity.class);
@@ -116,6 +125,10 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
         startActivity(addNewfood);
     }
 
+
+    /* This async task searches food for the query entered in teh search view.
+     * Retrofit Get network call is made to fetch data from server
+     */
     private class LoadDataIntoSearchTask extends AsyncTask<String, Void, Foods>
     {
         //String url = new String();
@@ -144,6 +157,7 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
                                     if (foodname.size() >= 10)
                                         break;
                                 }
+                                //list view is set with adapter and data is populated
 
                                 final ArrayAdapter adapter = new ArrayAdapter(CalculateFoodValueActivity.this,
                                         android.R.layout.simple_list_item_1, foodname);
@@ -152,9 +166,7 @@ public class CalculateFoodValueActivity extends Activity implements SearchView.O
                             else{
                                 listView.setVisibility(View.GONE);
                                 tv_search_header.setText("No matching results");
-
                             }
-
                         }
                     });
 

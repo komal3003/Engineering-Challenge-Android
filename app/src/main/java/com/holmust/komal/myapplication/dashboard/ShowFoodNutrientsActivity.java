@@ -31,6 +31,8 @@ import io.realm.RealmResults;
 
 /**
  * Created by Komal on 9/29/2015.
+ * The food item was selected in previous activity
+ * This activity displays the food details to the user.
  */
 public class ShowFoodNutrientsActivity extends Activity implements AdapterView.OnItemSelectedListener, TextView.OnEditorActionListener,
         View.OnClickListener {
@@ -50,6 +52,8 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
+
+        //get food details passed on intent from previous activity
         FoodValue food_details = (FoodValue) getIntent().getSerializableExtra("FoodDetails");
         food_type = getIntent().getStringExtra(LandingPageActivity.FOOD_TYPE_STR);
         super.onCreate(savedInstanceState);
@@ -83,6 +87,12 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
         populateSpinnerView(food_details);
     }
 
+    /*
+    * Hashmap of important nutrient objects with portion name as key is
+    * created in this method.
+    * ArrayList of portions is returned which is populated into the spinner
+    */
+
     private ArrayList<String> getServingSizes(ArrayList<Portion> portions)
     {
         ArrayList<String> servings = new ArrayList<>();
@@ -99,6 +109,7 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
         return servings;
     }
 
+    //Populate servings spinner with data
     private void populateSpinnerView(FoodValue details) {
 
         tv_fooname.setText(details.getName().toString());
@@ -106,11 +117,13 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,spin_data);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
         sp_serving.setAdapter(adapter);
-
-
     }
 
 
+    /*This method is called when portion is selected from the spinner.
+    * The nutrients are re-populated according to portion selected.
+
+    */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         ImportantNutrients imp_nut = mapPortionWithNutrient.get(sp_serving.getSelectedItem());
@@ -154,6 +167,10 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
 
     }
 
+    /*
+    This method is called when Serving size is editted.
+    * Each nutrient is also calculated based on serving size entered in EditText
+     */
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
@@ -181,11 +198,14 @@ public class ShowFoodNutrientsActivity extends Activity implements AdapterView.O
     public void onClick(View v) {
         if(v.equals(btn_add)) {
             Log.i(LOG_TAG, "Button clicked");
+
+            //Get new instance of database
             Realm realm = Realm.getInstance(this);
             Long start_write = new Date().getTime();
             realm.beginTransaction();
             FoodieDb userRealm = realm.createObject(FoodieDb.class);
-            //FoodieDb userRealm = DbUtil.CreateDb(this);
+
+           //Get data from EditText of the form and write data into the database
             String foodName = tv_fooname.getText().toString();
             Date date = new Date();//TBD
             String mealType = food_type;

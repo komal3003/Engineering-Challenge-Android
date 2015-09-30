@@ -11,12 +11,16 @@ import io.realm.RealmResults;
 
 /**
  * Created by Komal on 9/30/2015.
+ * Database class with methods that queries data from realm db
  */
 public class DbUtil {
 
     final static String LOG_TAG = "Calorimeter-ShowFoodNut";
     static int dataSize = 0;
 
+    /*
+    Fetch number of food items that have been added into database
+     */
     public static int getDataSize(Context context)
     {
         Realm realm = Realm.getInstance(context);
@@ -27,6 +31,9 @@ public class DbUtil {
         return dataSize;
     }
 
+    /*
+    * This method returns total calorie intake for lunch, dinner, breakfast for today
+    */
     public static float[] getCaloriesForToday(Context context)
     {
         float cal_lunch = 0;
@@ -41,7 +48,7 @@ public class DbUtil {
         RealmResults<FoodieDb> hallos = realm.where(FoodieDb.class).findAll();
         Long end_time = new Date().getTime();
         realm.commitTransaction();
-        Long data_retireval_time = end_time-start_time;
+        Long data_retireval_time = end_time-start_time; //Calculate data retrieval time from Realm db
 
         Log.d(LOG_TAG, "Data retrieval time in : :"+data_retireval_time +"ms");
 
